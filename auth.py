@@ -30,10 +30,10 @@ def refresh_token():
         return cached_token, expiry
 
     print("🔐 Refreshing token from API")
-    url = f"{os.getenv('HOSTNAME')}/authentication/v1/authentication/login"
+    url = f"{os.getenv('TOAST_HOSTNAME')}/authentication/v1/authentication/login"
     payload = {
-        "clientId": os.getenv("CLIENTID"),
-        "clientSecret": os.getenv("CLIENTSECRET"),
+        "clientId": os.getenv("TOAST_CLIENT_ID"),
+        "clientSecret": os.getenv("TOAST_CLIENT_SECRET"),
         "userAccessType": "TOAST_MACHINE_CLIENT"
     }
     headers = { "Content-Type": "application/json" }
