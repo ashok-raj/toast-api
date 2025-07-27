@@ -17,7 +17,7 @@ if not os.path.exists(MENU_FILE):
 
     token, _ = refresh_token()
 
-    url = f"{os.getenv('TOAST_HOSTNAME')}/authentication/v1/authentication/login"
+    url = f"{os.getenv('TOAST_HOSTNAME')}/menus/v2/menus"
     headers = {
         "Authorization": f"Bearer {token}",
         "Toast-Restaurant-External-Id": os.getenv("TOAST_RESTAURANT_GUID"),
