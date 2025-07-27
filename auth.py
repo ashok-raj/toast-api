@@ -2,6 +2,10 @@ import json
 import requests
 import os
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
+
+# 🌱 Load .env values
+load_dotenv()
 
 def load_cached_token():
     if os.path.exists('token_cache.json'):
@@ -19,17 +23,17 @@ def save_token(token, expiry):
             "expiryTime": expiry.isoformat()
         }, f)
 
-def refresh_token(config):
+def refresh_token():
     cached_token, expiry = load_cached_token()
     if cached_token:
         print("🔄 Using cached token")
         return cached_token, expiry
 
     print("🔐 Refreshing token from API")
-    url = f"{config['hostname']}/authentication/v1/authentication/login"
+    url = f"{os.getenv('HOSTNAME')}/authentication/v1/authentication/login"
     payload = {
-        "clientId": config["clientId"],
-        "clientSecret": config["clientSecret"],
+        "clientId": os.getenv("CLIENTID"),
+        "clientSecret": os.getenv("CLIENTSECRET"),
         "userAccessType": "TOAST_MACHINE_CLIENT"
     }
     headers = { "Content-Type": "application/json" }

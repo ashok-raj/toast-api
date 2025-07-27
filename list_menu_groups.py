@@ -1,19 +1,20 @@
 import json
 import requests
+import os
+from dotenv import load_dotenv
 from auth import refresh_token
 
-# --- Load config ---
-with open("config.json", "r") as f:
-    config = json.load(f)
+# --- Load .env values ---
+load_dotenv()
 
 # --- Get token ---
-access_token, _ = refresh_token(config)
+access_token, _ = refresh_token()
 
 # --- Fetch menus ---
-url = f"{config['hostname']}/menus/v2/menus"
+url = f"{os.getenv('TOAST_HOSTNAME')}/menus/v2/menus"
 headers = {
     "Authorization": f"Bearer {access_token}",
-    "Toast-Restaurant-External-Id": config["restaurantGuid"],
+    "Toast-Restaurant-External-Id": os.getenv("TOAST_RESTAURANT_GUID"),
     "Content-Type": "application/json"
 }
 response = requests.get(url, headers=headers)
@@ -34,4 +35,3 @@ for menu in data.get("menus", []):
 print("\n📚 Available Menu Groups:\n")
 for name in sorted(group_set):
     print(f"• {name}")
-
