@@ -51,5 +51,6 @@ group_names = sorted(group_names)
 # --- Call menu_group_items.py for each group
 for group in group_names:
     print(f"\n🔍 Scanning group: '{group}'")
-    subprocess.run(["python", "menu_group_items.py", group, "--no-menu-3pd"])
+    #subprocess.run(["python", "menu_group_items.py", group, "--no-menu-3pd"])
+    subprocess.run(["python", "menu_group_items.py", group, ""])
 
