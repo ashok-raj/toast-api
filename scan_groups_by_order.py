@@ -3,7 +3,12 @@ import os
 import subprocess
 import requests
 from auth import refresh_token
+from dotenv import load_dotenv
 
+# 🌱 Load .env values
+load_dotenv()
+
+#Constants
 MENU_FILE = "menu_v2_out.json"
 GROUP_LIST_FILE = "group_order.txt"
 
@@ -11,15 +16,17 @@ GROUP_LIST_FILE = "group_order.txt"
 if not os.path.exists(MENU_FILE):
     print("📡 menu_v2_out.json not found — fetching from API...")
 
-    with open("config.json", "r") as f:
-        config = json.load(f)
+    #with open("config.json", "r") as f:
+        #config = json.load(f)
 
-    token, _ = refresh_token(config)
+    token, _ = refresh_token()
 
-    url = f"{config['hostname']}/menus/v2/menus"
+    #url = f"{config['hostname']}/menus/v2/menus"
+    url = f"{os.getenv('TOAST_HOSTNAME')}/menus/v2/menus"
     headers = {
         "Authorization": f"Bearer {token}",
-        "Toast-Restaurant-External-Id": config["restaurantGuid"],
+        #"Toast-Restaurant-External-Id": config["restaurantGuid"],
+        "Toast-Restaurant-External-Id": os.getenv('TOAST_RESTAURANT_GUID'),
         "Content-Type": "application/json"
     }
 
