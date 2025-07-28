@@ -33,11 +33,12 @@ HOURS = "Monday Closed\nTuesday–Sunday 11:00am–2:00pm and 5:00pm–9:00pm"
 DISCLAIMER = "Menu items and prices subject to change."
 
 # --- Load data ---
+data = load_menu_data()
+
 if not os.path.exists(MENU_FILE) or not os.path.exists(GROUP_LIST_FILE):
     print("❌ Missing required files")
     sys.exit()
 
-data = load_menu_data()
 with open(GROUP_LIST_FILE, "r") as f:
     group_order = [line.strip() for line in f if line.strip()]
 
