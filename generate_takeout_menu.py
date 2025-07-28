@@ -4,6 +4,7 @@ import os
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
+from get_menu_data import load_menu_data
 
 # --- Config ---
 MENU_FILE = "menu_v2_out.json"
@@ -36,8 +37,7 @@ if not os.path.exists(MENU_FILE) or not os.path.exists(GROUP_LIST_FILE):
     print("❌ Missing required files")
     sys.exit()
 
-with open(MENU_FILE, "r") as f:
-    data = json.load(f)
+data = load_menu_data()
 with open(GROUP_LIST_FILE, "r") as f:
     group_order = [line.strip() for line in f if line.strip()]
 
